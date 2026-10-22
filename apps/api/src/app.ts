@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
-import pinoHttp from "pino-http";
+import pinoHttpModule from "pino-http";
 import { randomUUID } from "node:crypto";
 import { env } from "./lib/env.js";
 import { authRouter } from "./routes/auth.js";
@@ -17,7 +17,7 @@ app.use((req, res, next) => { const id = req.header("x-request-id") || randomUUI
 app.use(helmet());
 app.use(cors({ origin: env.WEB_ORIGIN, credentials: true }));
 app.use(express.json({ limit: "1mb" }));
-app.use(pinoHttp({ redact: ["req.headers.authorization", "req.headers.cookie"] }));
+app.use(pinoHttpModule.default({ redact: ["req.headers.authorization", "req.headers.cookie"] }));
 
 app.get("/health", async (_req, res) => {
   try { await prisma.$queryRaw`SELECT 1`; res.json({ status: "ok", service: "relayops-api", database: "ok" }); }
@@ -40,3 +40,5 @@ app.use("/api/v1/services", servicesRouter);
 app.use("/api/v1/incidents", incidentsRouter);
 app.use(notFound);
 app.use(errorHandler);
+
+

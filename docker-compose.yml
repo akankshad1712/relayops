@@ -1,3 +1,4 @@
+
 services:
   db:
     image: postgres:16-alpine
@@ -7,7 +8,7 @@ services:
       POSTGRES_PASSWORD: relayops_local
       POSTGRES_DB: relayops
     ports:
-      - "5432:5432"
+      - "15433:5432"
     volumes:
       - relayops_pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -15,5 +16,6 @@ services:
       interval: 5s
       timeout: 3s
       retries: 10
+
 volumes:
   relayops_pgdata:
