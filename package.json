@@ -1,0 +1,26 @@
+{
+  "name": "relayops",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n API,WEB -c blue,magenta \"npm run dev -w @relayops/api\" \"npm run dev -w @relayops/web\"",
+    "build": "npm run build -w @relayops/shared && npm run build -w @relayops/api && npm run build -w @relayops/web",
+    "lint": "npm run lint -w @relayops/api && npm run lint -w @relayops/web",
+    "test": "npm run test -w @relayops/api",
+    "db:generate": "npm run db:generate -w @relayops/api",
+    "db:migrate": "npm run db:migrate -w @relayops/api",
+    "db:seed": "npm run db:seed -w @relayops/api"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "typescript": "^5.7.3"
+  },
+  "author": {
+    "name": "Akanksha Deshmukh",
+    "email": "akankshadeshmukh651@gmail.com"
+  }
+}
